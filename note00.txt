@@ -1,0 +1,27 @@
+gtarted with GNL project
+
+///
+ev-a1% cat author | cat -e
+dbrittan$
+///
+
+no additioanl functions in libft.a
+i can use read malloc and free
+///GNL - return a line from file descriptor ( line ends with \n 0x0a or End Of File (EOF));
+//Recomended sources:
+https://en.wikipedia.org/wiki/Static_variable
+https://latedev.wordpress.com/2012/12/04/all-about-eof/
+
+//ERROR handling
+https://www.tutorialspoint.com/cprogramming/c_error_handling.htm
+errno = 0 at start
+
+//Adds some clarity on why we take **line
+https://www.youtube.com/watch?v=Edf98rf3Z3s&t=178s
+from 13:00
+--https://www.youtube.com/watch?v=toXltIcFX0Q&t=2s
+all you need to no
+
+////How to include headers and static libs
+gcc get_next_line.c -I../libft/ ../libft/libft.a
+
