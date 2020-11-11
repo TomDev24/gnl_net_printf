@@ -25,3 +25,5 @@ all you need to no
 ////How to include headers and static libs
 gcc get_next_line.c -I../libft/ ../libft/libft.a
 
+//HAHA libft is not allowed for get next line
+

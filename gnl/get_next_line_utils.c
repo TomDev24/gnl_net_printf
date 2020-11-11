@@ -1,28 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/08 14:49:07 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/11 16:12:59 by dbrittan         ###   ########.fr       */
+/*   Created: 2020/11/11 12:19:55 by dbrittan          #+#    #+#             */
+/*   Updated: 2020/11/11 13:58:49 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE
-# define GET_NEXT_LINE
+#include "get_next_line"
 
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 32
-# endif
 
-# include <errno.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include "libft.h"
-
-int	get_next_line(const int fd, char **line);
-
-#endif
