@@ -27,3 +27,9 @@ gcc get_next_line.c -I../libft/ ../libft/libft.a
 
 //HAHA libft is not allowed for get next line
 
+// What is diffrence const char and char const ? nonne
+https://stackoverflow.com/questions/890535/what-is-the-difference-between-char-const-and-const-char
+
+
+//Rockstone of all tests;
+https://github.com/jgigault/42FileChecker

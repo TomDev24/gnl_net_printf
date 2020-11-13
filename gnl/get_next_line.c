@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:50:11 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/11 16:52:00 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:41:20 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	get_next_line(int fd, char **line)
 	char buffer[BUFFER_SIZE + 1];	
 	int	got_bytes;
 	char *cut;
-	int flag;
+	//int flag;
 	static char *left;
 
 	flag = 1;
-	if (left && *left != '\0') // i cant check like *left got it
+	if (left && *left) // i cant check like *left got it
 	{
 		if (what_left(line, &left))
 			return (1);	
@@ -49,7 +49,7 @@ int	get_next_line(int fd, char **line)
 	else
 		*line = ft_calloc(1, sizeof(char));
 
-	while (flag && (got_bytes = read(fd, buffer, BUFFER_SIZE)))
+	while ((got_bytes = read(fd, buffer, BUFFER_SIZE)))
 	{
 		buffer[got_bytes] = '\0';
 		if ((cut = ft_strchr(buffer, '\n')))
@@ -57,7 +57,9 @@ int	get_next_line(int fd, char **line)
 			//if ((cut + 1))
 			left = ft_strdup(cut + 1);
 			*cut = '\0';
-			flag = 0;
+			*line = ft_strjoin(*line, buffer)
+			return (1);
+			//flag = 0;
 				
 		}
 		*line = ft_strjoin(*line, buffer);
