@@ -1,0 +1,10 @@
+info about printf
+
+Making my Makefile, seems like whoever will want to use my library would have to
+use my libft?
+https://stackoverflow.com/questions/41322971/compiling-a-library-that-uses-another-library-in-c
+
+//Find new info
+https://www.notion.so/ft_printf-3e358ed673d14164b88de9eb428f3c6a
+
+
