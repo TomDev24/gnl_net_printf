@@ -54,3 +54,10 @@ RFC - протоколы интернет
 http://ladu.htk.tlu.ee/erika/taavi/doc2/network_and_broadcast_address.html
 
 //Default GateAway
+
+//To pass netwhat i used
+1)Decimal to binary converter
+2)https://erikberg.com/notes/networks.html
+-probably all info required to pass netwhat is here
+3)programming calculator
+4)online calculator of ip ranges

@@ -33,3 +33,16 @@ https://stackoverflow.com/questions/890535/what-is-the-difference-between-char-c
 
 //Rockstone of all tests;
 https://github.com/jgigault/42FileChecker
+--not anymore!!!!!
+
+--------//
+Making GNL (without bonuses) required 3 rewrites.
+I started small, with 1 byte read, and gradually increased functionality of programm
+leaks were handled from the start.
+//What i learned
+1)leaks a.out -- tool to check leaks, valgrind has problem
+2)getchar() from stdio.h allows to "fix" program
+3)lldb - debug tool, same as gdb on linux
+-> lldb --a.out params
+
+//Test for GNL -> war-machine, GNL-lover, and 42Checker
