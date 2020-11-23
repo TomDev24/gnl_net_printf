@@ -7,4 +7,7 @@ https://stackoverflow.com/questions/41322971/compiling-a-library-that-uses-anoth
 //Find new info
 https://www.notion.so/ft_printf-3e358ed673d14164b88de9eb428f3c6a
 
-
+//Some manual adds clarity to function
+http://www.c-cpp.ru/content/printf
+//Another good documentation
+https://docs.microsoft.com/ru-ru/cpp/c-runtime-library/format-specification-syntax-printf-and-wprintf-functions?view=msvc-160#flags
