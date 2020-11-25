@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 15:47:10 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/23 16:04:43 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:35:48 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 # include <stdarg.h>
 # include "./libft/libft.h"
+
+typedef	struct	info
+{
+	char flag;
+	int width;
+	int precision
+	char type;
+}	Params;
 
 int	ft_printf(const char *format, ...);
 

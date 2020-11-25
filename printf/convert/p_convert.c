@@ -6,11 +6,12 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:46:02 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/25 11:52:18 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/25 17:11:58 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h" 
+#include <stdio.h>
 
 char	*p_convert(void *p)
 {

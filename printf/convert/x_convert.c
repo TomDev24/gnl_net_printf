@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:54:11 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/25 13:20:55 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/25 17:11:56 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	convert_hex(int n, char flag)
 	return (0);
 }
 
-char	*x_convert(int val, char flag)
+char	*x_convert(unsigned long int val, char flag)
 {
 	int orig_val;
 	int len;
