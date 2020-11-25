@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   p_convert.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 15:29:13 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/23 16:09:24 by dbrittan         ###   ########.fr       */
+/*   Created: 2020/11/25 11:46:02 by dbrittan          #+#    #+#             */
+/*   Updated: 2020/11/25 11:52:18 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "libft.h" 
 
-int	ft_printf(const char *format, ...)
+char	*p_convert(void *p)
 {
-	va_list args;
-	char *res;
-
-	va_start(args, format);
+	if (!p)
+		return (0);
 	
-	res =va_arg(args, char *);
-	ft_putstr_fd(res, 1);
-	va_end(args);
-	return (0);
 }
