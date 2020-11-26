@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 15:47:10 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/25 18:35:48 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:56:58 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ typedef	struct	info
 {
 	char flag;
 	int width;
-	int precision
+	int precision;
 	char type;
 }	Params;
+
+//convert
+char	*x_convert(int val, char flag);
 
 int	ft_printf(const char *format, ...);
 
