@@ -16,8 +16,9 @@ int main(int argc, char **argv)
 	//BASIC INPUT FOR HEX CONVERTER
 	while (i < 16)
 	{
-		res = x_convert(15, 'A');
+		res = x_convert(12345, 'A');
 		printf("%s -- %d\n",res, i);
+		printf("%x !!", 12345);
 		i++;
 	}
 
