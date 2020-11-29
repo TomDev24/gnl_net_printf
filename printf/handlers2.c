@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handlers2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 18:20:47 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/29 20:17:53 by dbrittan         ###   ########.fr       */
+/*   Created: 2020/11/29 20:02:41 by dbrittan          #+#    #+#             */
+/*   Updated: 2020/11/29 20:19:46 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftprintf.h"
-#include <stdio.h>
+#include "libftprintf.h"
 
-int main (int argc, char **argv)
+
+void	handle_pointer(Params *p, va_list args)
 {
-	int a;
-	//static char *s_hidden = "hi low\0don't print me lol\0";
+	long long int res;	
+	char *s;
+	size_t str_len;
 
-	if (argc == 10 && argv)
-		a = 1;
-	
-	ft_printf("%p\n", &a);
-	printf("%p\n", &a);
-	return (0);
+	res = va_arg(args, long int);
+	if (p->width)
+		p->width = p->width;
+	//leaks
+	s = ft_strjoin("0x", x_convert(res,'a'));
+	str_len = ft_strlen(s);
+	write(1, s, str_len);
 }
+

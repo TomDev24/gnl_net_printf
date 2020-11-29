@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 15:47:10 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/27 18:56:33 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:17:58 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	ft_putstr_print(char *s, int len);
 void	handle_str(Params *p, va_list args);
 void	handle_int(Params *p, va_list args);
 void	handle_hex(Params *p, va_list args);
+void	handle_pointer(Params *p, va_list args);
 
 #endif

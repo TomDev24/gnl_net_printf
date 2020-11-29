@@ -5,7 +5,7 @@ FLAGS = -Wall -Wextra -Werror
 
 
 OBJS = *.o
-PRINTF_O = ft_printf.o handlers.o utils.o 
+PRINTF_O = ft_printf.o handlers.o handlers2.o utils.o 
 CONVERT_O = convert/x_convert.o
 
 .PHONY: all clean fclean re

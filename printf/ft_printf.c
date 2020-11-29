@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:29:13 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/27 18:56:32 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:18:00 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	format_print(Params p, va_list args)
 		ft_putchar_fd(va_arg(args, int), 1);
 	if (p.type == 's')
 		handle_str(&p, args);
+	if (p.type == 'p')
+		handle_pointer(&p, args);
 	if (p.type == 'x' || p.type == 'X')
 	{
 		handle_hex(&p, args);		
@@ -54,10 +56,14 @@ int	init_struct(char *format, va_list args)
 	{
 		if (*format == '*')
 			replace_star(format, &p, args);
-		if (is_flag(*format) && offset == 2)
-			p.flag = *format;
-		if (ft_isdigit(*format) && p.width == -1 && p.dot == 0)
-			p.width = ft_atoi(format);	
+		if (is_flag(*format) && !p.dot && p.flag != '-')
+		{
+			p.flag = *format++;
+			offset++;
+			continue ;	
+		}
+		if (ft_isdigit(*format)  && p.width == -1 && !p.dot)
+			p.width = ft_atoi(format);
 		if (*format == '.')
 		{
 			p.dot = 1;

@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:19:00 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/27 17:59:24 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:17:59 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	clean_params(Params *p)
 	p->width = -1;
 	p->precision = -1;
 	p->type = -1;
-	p->flag = 0;
+	p->flag = -1;
 	p->dot = 0;
 	return (1);
 }
