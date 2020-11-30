@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:29:13 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/29 20:18:00 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:51:09 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	replace_star(char *format, Params *p, va_list args)
 {
 	int holder;
 	
-	//percision or width ?????
 	holder = va_arg(args, int);
-	//if there is dot then percision
 	if (*(format - 1) == '.')
 		p->precision = holder;
 	else
@@ -28,19 +26,17 @@ void	replace_star(char *format, Params *p, va_list args)
 
 void	format_print(Params p, va_list args)
 {
-	//va arg
-	// lets handle char and string
 	if (p.type == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		handle_char(&p, args);
 	if (p.type == 's')
 		handle_str(&p, args);
 	if (p.type == 'p')
 		handle_pointer(&p, args);
+	if (p.type == '%')
+		handle_percent(&p);
 	if (p.type == 'x' || p.type == 'X')
-	{
 		handle_hex(&p, args);		
-	}
-	if (p.type == 'd')
+	if (p.type == 'd' || p.type == 'i')
 		handle_int(&p, args);
 }
 
@@ -56,7 +52,7 @@ int	init_struct(char *format, va_list args)
 	{
 		if (*format == '*')
 			replace_star(format, &p, args);
-		if (is_flag(*format) && !p.dot && p.flag != '-')
+		if (is_flag(*format) && !p.dot && p.flag != '-' && p.width == -1)
 		{
 			p.flag = *format++;
 			offset++;
@@ -71,8 +67,10 @@ int	init_struct(char *format, va_list args)
 			if (ft_isdigit(*(format+1)))
 				p.precision	= ft_atoi(format+1);
 		}
-		format++;
 		offset++;
+		if (*(format) == '%')
+			break;
+		format++;		
 	}
 	p.type = *format;
 	//print_params(p);
@@ -94,7 +92,7 @@ void	print(const char *format, va_list args)
 	{
 		if (format[i] == '%')
 		{
-			i += init_struct((char*)&format[i+1], args); //after percent
+			i += init_struct((char*)&format[i+1], args);
 			continue ;
 		}
 		if (i >= len)
@@ -108,8 +106,8 @@ int	ft_printf(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	
-	print(format, args);	
+
+	print(format, args);
 	va_end(args);
 	return (0);
 }

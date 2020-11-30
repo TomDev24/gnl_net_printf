@@ -6,14 +6,14 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:54:11 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/29 20:17:55 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:12:59 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include <stdio.h>
 
-static char	convert_hex(size_t n, char flag)
+static char	convert_hex(long long int n, char flag)
 {
 	flag++;
 	if (n >= 0 && n <= 9)
@@ -23,9 +23,9 @@ static char	convert_hex(size_t n, char flag)
 	return (0);
 }
 
-char	*x_convert(long int val, char flag)
+char	*x_convert(long long int val, char flag)
 {
-	long int orig_val;
+	long long int orig_val;
 	size_t len;
 	char *res;
 

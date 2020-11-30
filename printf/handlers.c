@@ -6,18 +6,11 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:17:56 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/29 20:17:58 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:33:20 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-/*
-void	handle_char(Params *p, va_list args)
-{
-	int a;
-	a = p->width +10;
-}*/
 
 void	handle_hex(Params *p, va_list args)
 {
@@ -66,25 +59,6 @@ void	handle_hex(Params *p, va_list args)
 		while (i++ < counter)
 			ft_putchar_fd(fill, 1);
 	}
-	/*
-	if (p->dot == 1)
-	{
-		if (p->precision - str_len > 0)
-			spaces = p->precision - str_len;
-		fill = '0';
-	}
-	if (p->flag == '-')
-	{
-		write(1, s, str_len);
-		while (i++ < spaces)
-			ft_putchar_fd(fill, 1);
-	}
-	else
-	{
-		while (i++ < spaces)
-			ft_putchar_fd(fill, 1);	
-		write(1, s, str_len);
-	}*/
 }
 
 void	handle_int(Params *p, va_list args)
@@ -105,6 +79,8 @@ void	handle_int(Params *p, va_list args)
 	fill = ' ';
 	res = va_arg(args, int);
 	s = ft_itoa(res); 
+	if ((p->precision == 0) && *s == '0')
+		s = ft_strdup("");
 	str_len = ft_strlen(s);
 	//if (res < 0)
 	//	str_len--;
@@ -118,18 +94,27 @@ void	handle_int(Params *p, va_list args)
 			spaces = p->precision - str_len;
 		//fill = '0';
 	}
+	//for ". or .0", 0 //
 	counter = p->width - str_len;
 	if (p->precision > str_len)
 			counter =p->width - p->precision;
+			//if (res < 0)
+				//counter++;
 	if (p->precision != -1)
 		fill = ' ';
+	if (res < 0 && fill == '0')
+	{
+		ft_putchar_fd('-', 1);	
+		res *= -1;
+		str_len--;
+	}
 	if (p->flag != '-')
 	{
 		while (i++ < counter)
 			ft_putchar_fd(fill, 1);	
 		i = 0;
 	}
-	if (res < 0 )
+	if (res < 0)
 	{
 		ft_putchar_fd('-', 1);	
 		res *= -1;
