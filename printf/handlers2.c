@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:02:41 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/30 15:33:20 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/11/30 20:36:02 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	handle_percent(Params *p)
 	if (p->flag =='-')
 		while (i++ < spaces)
 			ft_putchar_fd(' ', 1);	
-
 }
 
 void	handle_char(Params *p, va_list args)
@@ -43,8 +42,7 @@ void	handle_char(Params *p, va_list args)
 	i = 0;
 	spaces = 0;
 	if (p->width != -1 && p->width - 1 > 0) 
-		spaces = p->width - 1;
-	
+		spaces = p->width - 1;	
 	if (p->flag !='-')
 		while (i++ < spaces)
 			ft_putchar_fd(' ', 1);	
@@ -56,7 +54,6 @@ void	handle_char(Params *p, va_list args)
 
 void	handle_pointer(Params *p, va_list args)
 {
-	long long int res;	
 	char *s;
 	size_t str_len;
 	int spaces;
@@ -66,9 +63,8 @@ void	handle_pointer(Params *p, va_list args)
 	i = 0;
 	spaces = 0;
 	fill = ' ';
-	res = va_arg(args, long long int);
 	//leaks
-	s = ft_strjoin("0x", x_convert(res,'a'));
+	s = ft_strjoin("0x", x_convert(va_arg(args, long long int),'a'));
 	str_len = ft_strlen(s);
 	if (p->width != -1 && p->width - str_len > 0) 
 		spaces = p->width - str_len;
@@ -82,4 +78,3 @@ void	handle_pointer(Params *p, va_list args)
 		while (i++ < spaces)
 			ft_putchar_fd(' ', 1);
 }
-
