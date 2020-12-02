@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 15:47:10 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/30 15:33:19 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/12/02 21:04:02 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	print_params(Params p);
 
 int		is_flag(char c);
 int		clean_params(Params *p);
+void	fill_char(int len, char fill);
+
 void	ft_putstr_print(char *s, int len);
 void	handle_str(Params *p, va_list args);
 void	handle_int(Params *p, va_list args);
@@ -47,4 +49,5 @@ void	handle_hex(Params *p, va_list args);
 void	handle_pointer(Params *p, va_list args);
 void	handle_char(Params *p, va_list args);
 void	handle_percent(Params *p);
+
 #endif

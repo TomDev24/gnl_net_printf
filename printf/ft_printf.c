@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:29:13 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/30 20:35:59 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:28:01 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,22 @@ void	replace_star(char *format, Params *p, va_list args)
 {
 	int holder;
 	
-	holder = va_arg(args, int);
-	if (*(format - 1) == '.')
-		p->precision = holder;
-	else
+	holder = va_arg(args, unsigned int);
+	if (holder < 0)
+		p->flag = '-';
+	if (p->dot && *(format - 1) == '.')
+	{
+		if (holder < 0)
+			p->precision = -1;
+		else
+			p->precision = holder;
+	}
+	if (p->width == -1 && !p->dot)
+	{
+		if (holder < 0)
+			holder *= -1;
 		p->width = holder;
+	}
 }
 
 void	format_print(Params p, va_list args)
@@ -36,7 +47,7 @@ void	format_print(Params p, va_list args)
 		handle_percent(&p);
 	if (p.type == 'x' || p.type == 'X')
 		handle_hex(&p, args);		
-	if (p.type == 'd' || p.type == 'i')
+	if (p.type == 'd' || p.type == 'i' || p.type == 'u')
 		handle_int(&p, args);
 }
 
@@ -50,6 +61,20 @@ int	init_struct(char *format, va_list args)
 	clean_params(&p);
 	while (!ft_strchr(types, *format))
 	{
+		if (*format == ' ')
+		{
+			ft_putchar_fd(' ', 1);
+			format++;
+			offset++;
+			continue ;
+		}
+		if (*format == '.')
+		{
+			p.dot = 1;
+			p.precision = 0;
+			if (ft_isdigit(*(format+1)))
+				p.precision	= ft_atoi(format+1);
+		}
 		if (*format == '*')
 			replace_star(format, &p, args);
 		if (is_flag(*format) && !p.dot && p.flag != '-' && p.width == -1)
@@ -60,13 +85,6 @@ int	init_struct(char *format, va_list args)
 		}
 		if (ft_isdigit(*format)  && p.width == -1 && !p.dot)
 			p.width = ft_atoi(format);
-		if (*format == '.')
-		{
-			p.dot = 1;
-			p.precision = 0;
-			if (ft_isdigit(*(format+1)))
-				p.precision	= ft_atoi(format+1);
-		}
 		offset++;
 		if (*(format) == '%')
 			break;

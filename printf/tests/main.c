@@ -6,7 +6,7 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 18:20:47 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/30 15:33:18 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:24:04 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int main (int argc, char **argv)
 	if (argc == 10 && argv)
 		a = 1;
 	
-	ft_printf("%x\n", -2);
-	printf("%x\n", -2);
+	ft_printf("%10.0d", 1234);	
 	return (0);
 }

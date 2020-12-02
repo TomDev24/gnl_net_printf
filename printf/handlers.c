@@ -6,113 +6,111 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:17:56 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/11/30 20:35:59 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/12/02 21:04:01 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	handle_hex(Params *p, va_list args)
+void		handle_hex(Params *p, va_list args)
 {
-	char fill;
-	char *s;
-	int i;
-	int str_len;
-	int counter;
+	char	fill;
+	char	*s;
+	int		str_len;
+	int		counter;
 
-	i = 0;
 	fill = ' ';
-	s = x_convert(va_arg(args,long int), p->type - 23);
-	//costell and mem leaks
+	s = x_convert(va_arg(args, long int), p->type - 23);
 	if ((p->precision == 0) && *s == '0')
-		s = ft_strdup("");
+		*s = '\0';
 	str_len = ft_strlen(s);
 	if (p->flag == '0')
 		fill = '0';
 	counter = p->width - str_len;
 	if (p->precision > str_len)
-		counter =p->width - p->precision;
+		counter = p->width - p->precision;
 	if (p->precision != -1)
 		fill = ' ';
 	if (p->flag != '-')
-		while (i++ < counter)
-			ft_putchar_fd(fill, 1);	
-	i = 0;
-	while (i++ < p->precision - str_len)
-			ft_putchar_fd('0', 1);
-	i = 0;
+		fill_char(counter, fill);
+	fill_char(p->precision - str_len, '0');
 	write(1, s, str_len);
 	if (p->flag == '-')
-		while (i++ < counter)
-			ft_putchar_fd(fill, 1);
+		fill_char(counter, fill);
 }
 
-void	handle_int(Params *p, va_list args)
+static void	chose_int(Params *p, long int *res, va_list args)
 {
-	int res;
-	char fill;
-	char *s;
-	int i;
-	int str_len;
-	int counter;
+	if (p->type == 'd' || p->type == 'i')
+		*res = va_arg(args, int);
+	else
+		*res = va_arg(args, unsigned int);
+}
 
-	counter = 0;
-	i = 0;
-	res = va_arg(args, int);
-	s = ft_itoa(res); 
-	if ((p->precision == 0) && *s == '0')
-		s = ft_strdup("");
-	str_len = ft_strlen(s);
-	fill = p->flag == 0 ? '0' : ' ';
-
-	counter = p->precision > str_len ? p->width - p->precision : p->width - str_len;
-	//fill = p->precision != -1 ? ' ' : fill;
-	if (res < 0 && p->precision > str_len)
-			counter--;
-	if (p->flag != '-')
-		while (i++ < counter)
-			ft_putchar_fd(fill, 1);
-	if (res < 0)
+static void	write_minus(long int *res, char fill, int *str_len)
+{
+	if (*res < 0 && fill == '0')
 	{
-		ft_putchar_fd('-', 1);	
-		res *= -1;
-		str_len--;
+		ft_putchar_fd('-', 1);
+		*res *= -1;
+		*str_len -= 1;
 	}
-	s = ft_itoa(res); 
-	i = 0;
-	while (i++ < p->precision - str_len)
-			ft_putchar_fd('0', 1);
-	i = 0;
-	write(1, s, str_len);
-	if (p->flag == '-')
-		while (i++ < counter)
-			ft_putchar_fd(' ', 1);
 }
 
-void	handle_str(Params *p, va_list args)
+void		handle_int(Params *p, va_list args)
 {
-	char *s;
-	int str_len;
-	int i;
-	int spaces;	
+	long int	res;
+	char		fill;
+	char		*s;
+	int			len;
+	int			counter;
+
+	chose_int(p, &res, args);
+	s = ft_itoa(res);
+	if ((p->precision == 0) && *s == '0')
+		*s = '\0';
+	len = ft_strlen(s);
+	fill = (p->flag == '0') ? '0' : ' ';
+	counter = p->precision > len ? p->width - p->precision : p->width - len;
+	fill = p->precision != -1 ? ' ' : fill;
+	if (res < 0 && p->precision > len)
+		counter--;
+	write_minus(&res, fill, &len);
+	if (p->flag != '-')
+		fill_char(counter, fill);
+	write_minus(&res, '0', &len);
+	s = ft_itoa(res);
+	fill_char(p->precision - len, '0');
+	write(1, s, len);
+	if (p->flag == '-')
+		fill_char(counter, ' ');
+}
+
+void		handle_str(Params *p, va_list args)
+{
+	char	*s;
+	int		str_len;
+	int		i;
+	int		spaces;
 
 	i = 0;
-	str_len = 0;
 	spaces = 0;
 	s = va_arg(args, char *);
 	if (s == NULL)
+	{
+		p->type = 'f';
 		s = ft_strdup("(null)");
-	str_len = ft_strlen(s);	
+	}
+	str_len = ft_strlen(s);
 	if (p->precision >= 0)
 		str_len = p->precision < str_len ? p->precision : str_len;
-	if (p->width != -1 && p->width - str_len > 0) 
+	if (p->width != -1 && p->width - str_len > 0)
 		spaces = p->width - str_len;
 	if (p->flag != '-')
-		while (i++ < spaces)
-			ft_putchar_fd(' ', 1);
-	ft_putstr_print(s, str_len);
-	if (p->flag == '-')	
-		while (i++ < spaces)
-			ft_putchar_fd(' ', 1);	
-	//free(s); in diff place
+		fill_char(spaces, ' ');
+	write(1, s, str_len);
+	if (p->flag == '-')
+		fill_char(spaces, ' ');
+	if (p->type == 'f')
+		free(s);
 }
