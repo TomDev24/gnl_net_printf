@@ -6,13 +6,13 @@
 /*   By: dbrittan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:17:56 by dbrittan          #+#    #+#             */
-/*   Updated: 2020/12/02 21:04:01 by dbrittan         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:00:27 by dbrittan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void		handle_hex(Params *p, va_list args)
+void		handle_hex(t_params *p, va_list args)
 {
 	char	fill;
 	char	*s;
@@ -32,14 +32,14 @@ void		handle_hex(Params *p, va_list args)
 	if (p->precision != -1)
 		fill = ' ';
 	if (p->flag != '-')
-		fill_char(counter, fill);
-	fill_char(p->precision - str_len, '0');
-	write(1, s, str_len);
+		fill_char(counter, fill * ic(p, counter));
+	fill_char(p->precision - str_len, '0' * ic(p, p->precision - str_len));
+	write(1, s, str_len * ic(p, str_len));
 	if (p->flag == '-')
-		fill_char(counter, fill);
+		fill_char(counter, fill * ic(p, counter));
 }
 
-static void	chose_int(Params *p, long int *res, va_list args)
+static void	chose_int(t_params *p, long int *res, va_list args)
 {
 	if (p->type == 'd' || p->type == 'i')
 		*res = va_arg(args, int);
@@ -47,17 +47,17 @@ static void	chose_int(Params *p, long int *res, va_list args)
 		*res = va_arg(args, unsigned int);
 }
 
-static void	write_minus(long int *res, char fill, int *str_len)
+static void	write_minus(long int *res, char fill, int *str_len, t_params *p)
 {
 	if (*res < 0 && fill == '0')
 	{
-		ft_putchar_fd('-', 1);
+		ft_putchar_fd('-', 1 * ic(p, 1));
 		*res *= -1;
 		*str_len -= 1;
 	}
 }
 
-void		handle_int(Params *p, va_list args)
+void		handle_int(t_params *p, va_list args)
 {
 	long int	res;
 	char		fill;
@@ -75,18 +75,18 @@ void		handle_int(Params *p, va_list args)
 	fill = p->precision != -1 ? ' ' : fill;
 	if (res < 0 && p->precision > len)
 		counter--;
-	write_minus(&res, fill, &len);
+	write_minus(&res, fill, &len, p);
 	if (p->flag != '-')
-		fill_char(counter, fill);
-	write_minus(&res, '0', &len);
+		fill_char(counter, fill * ic(p, counter));
+	write_minus(&res, '0', &len, p);
 	s = ft_itoa(res);
-	fill_char(p->precision - len, '0');
-	write(1, s, len);
+	fill_char(p->precision - len, '0' * ic(p, p->precision - len));
+	write(1, s, len * ic(p, len));
 	if (p->flag == '-')
-		fill_char(counter, ' ');
+		fill_char(counter, ' ' * ic(p, counter));
 }
 
-void		handle_str(Params *p, va_list args)
+void		handle_str(t_params *p, va_list args)
 {
 	char	*s;
 	int		str_len;
@@ -107,10 +107,10 @@ void		handle_str(Params *p, va_list args)
 	if (p->width != -1 && p->width - str_len > 0)
 		spaces = p->width - str_len;
 	if (p->flag != '-')
-		fill_char(spaces, ' ');
-	write(1, s, str_len);
+		fill_char(spaces, ' ' * ic(p, spaces));
+	write(1, s, str_len * ic(p, str_len));
 	if (p->flag == '-')
-		fill_char(spaces, ' ');
+		fill_char(spaces, ' ' * ic(p, spaces));
 	if (p->type == 'f')
 		free(s);
 }
